@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom styles for the annotation component */
+.annotation-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+}
+
+.text-content {
+  @apply prose prose-lg max-w-none bg-white p-8 rounded-lg shadow-sm;
+}
+
+.annotation-sidebar {
+  @apply bg-white rounded-lg shadow-sm p-6 space-y-6 max-h-[calc(100vh-2rem)] overflow-y-auto;
+}
+
+.annotation {
+  @apply bg-white rounded-lg border border-gray-200 p-4 transition hover:shadow-md;
+}
+
+.annotation-header {
+  @apply flex items-center justify-between mb-2;
+}
+
+.vote-buttons {
+  @apply flex items-center gap-2 text-gray-500;
+}
+
+.vote-button {
+  @apply p-1.5 rounded-full hover:bg-gray-100 transition;
+}
+
+.reply-section {
+  @apply mt-4 space-y-3;
+}
+
+.reply {
+  @apply bg-gray-50 rounded p-3 text-sm;
+}
+
+.action-buttons {
+  @apply flex gap-2 mt-4;
+}
+
+.action-button {
+  @apply px-3 py-1.5 rounded-md text-sm font-medium transition;
+}
+
+.approve-button {
+  @apply bg-green-100 text-green-700 hover:bg-green-200;
+}
+
+.reject-button {
+  @apply bg-red-100 text-red-700 hover:bg-red-200;
+}
+
+/* Highlight styles */
+.highlight-pending {
+  @apply bg-yellow-200 cursor-pointer transition hover:bg-yellow-300;
+}
+
+.highlight-approved {
+  @apply bg-green-200 cursor-pointer transition hover:bg-green-300;
+}
+
+.highlight-rejected {
+  @apply bg-red-200 cursor-pointer transition hover:bg-red-300;
+}
+
+/* Form styles */
+.annotation-form {
+  @apply space-y-4 p-4 bg-gray-50 rounded-lg mt-4;
+}
+
+.form-input {
+  @apply w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500;
+}
+
+.submit-button {
+  @apply bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition;
+}
