@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { validateFormFields } from "../utilities/Validation.jsx";
 
 const Uploads = () => {
   const [documentData, setData] = useState({
@@ -10,7 +11,7 @@ const Uploads = () => {
     content: "",
   });
 
-  const [error, setErrorMessage] = useState("");
+  const [errors, setErrorMessage] = useState({});
 
   const handleChangeInput = (fieldName, data) => {
     //change input title
@@ -20,24 +21,11 @@ const Uploads = () => {
     }));
   };
 
-  const validateFeatureCombination = (documentData) => {
-    if (
-      documentData.title == "" &&
-      documentData.content == "" &&
-      documentData.user_id == null &&
-      documentData.group_id == null
-    ) {
-      return { valid: false, message: "Required fields" };
-    }
-    return { valid: true };
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const validation = validateFeatureCombination(documentData);
+    const validation = validateFormFields(documentData, setErrorMessage);
 
     if (!validation.valid) {
-      setErrorMessage(validation.message);
       return; // Stop submission if validation fails
     }
     const options = {
@@ -48,7 +36,7 @@ const Uploads = () => {
       body: JSON.stringify(documentData),
     };
     const response = fetch("", options);
-    window.location = "/";
+    //window.location = "/";
   };
 
   return (
@@ -64,6 +52,7 @@ const Uploads = () => {
             className="input-item"
             placeholder="Title"
           />
+          {errors.title ? <em className="err-message">*{errors.title}</em> : ""}
         </div>
 
         <div className="form-group">
@@ -76,6 +65,11 @@ const Uploads = () => {
               handleChangeInput("content", editor.getData())
             }
           />
+          {errors.content ? (
+            <em className="err-message">*{errors.content}</em>
+          ) : (
+            ""
+          )}
         </div>
 
         <input

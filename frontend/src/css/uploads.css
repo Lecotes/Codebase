@@ -21,7 +21,7 @@
 }
 
 .input-labels {
-  @apply font-[16px] leading-[26px] pb-1 text-[#171A1FFF];
+  @apply text-[16px] leading-[26px] pb-1 text-[#171A1FFF] font-[700];
 }
 .page-header {
   @apply text-[32px] leading-[48px] font-[700] text-[#171A1FFF];
@@ -49,4 +49,8 @@
 
 .ck.ck-reset {
   @apply bg-[#FFFFFFFF] border-[1px] border-[#BCC1CAFF] border-solid outline-none w-[70%] !important;
+}
+
+.err-message {
+  @apply text-[#c91717] text-[14px] leading-[26px] pt-2;
 }
