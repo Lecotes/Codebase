@@ -52,7 +52,7 @@ const Uploads = () => {
             className="input-item"
             placeholder="Title"
           />
-          {errors.title ? <em className="err-message">*{errors.title}</em> : ""}
+          {errors.title && <em className="err-message">*{errors.title}</em>}
         </div>
 
         <div className="form-group">
@@ -65,11 +65,7 @@ const Uploads = () => {
               handleChangeInput("content", editor.getData())
             }
           />
-          {errors.content ? (
-            <em className="err-message">*{errors.content}</em>
-          ) : (
-            ""
-          )}
+          {errors.content && <em className="err-message">*{errors.content}</em>}
         </div>
 
         <input
