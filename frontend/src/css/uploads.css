@@ -1,0 +1,52 @@
+.upload-page-container {
+  @apply w-[80%];
+}
+.form-group {
+  @apply flex flex-col pb-5;
+}
+.input-item {
+  @apply w-[445px] h-[36px] pl-[12px] pr-[12px] text-[14px] leading-[22px] font-[400] bg-[#FFFFFFFF] border-[1px] border-[#BCC1CAFF] border-solid outline-none;
+}
+
+.input-item:hover {
+  @apply text-[#171A1FFF]  bg-[#FFFFFFFF] border-[#A7ADB7FF];
+}
+
+.input-item:focused {
+  @apply text-[#171A1FFF] bg-[#FFFFFFFF] border-[#9095A0FF];
+}
+
+.input-item:disabled {
+  @apply text-[#171A1FFF] bg-[#FFFFFFFF] border-[#BCC1CAFF];
+}
+
+.input-labels {
+  @apply font-[16px] leading-[26px] pb-1 text-[#171A1FFF];
+}
+.page-header {
+  @apply text-[32px] leading-[48px] font-[700] text-[#171A1FFF];
+}
+
+.submit-btn {
+  @apply h-[36px] py-0 px-[12px] flex items-center justify-center text-[14px] leading-[22px] font-[400] opacity-100 text-white bg-[#565E6D] border-none rounded-none;
+}
+
+.submit-btn:hover {
+  @apply text-white bg-[#424956];
+}
+
+.submit-btn:active {
+  @apply text-white bg-[#323842];
+}
+
+.submit-btn:disabled {
+  @apply opacity-40;
+}
+
+.ck.ck-content {
+  @apply min-h-[400px] text-[14px] leading-[22px] text-[#171A1FFF] font-[400] outline-none;
+}
+
+.ck.ck-reset {
+  @apply bg-[#FFFFFFFF] border-[1px] border-[#BCC1CAFF] border-solid outline-none w-[70%] !important;
+}
