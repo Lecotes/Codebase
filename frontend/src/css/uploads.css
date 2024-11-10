@@ -5,7 +5,7 @@
   @apply flex flex-col pb-5;
 }
 .input-item {
-  @apply w-[445px] h-[36px] pl-[12px] pr-[12px] text-[14px] leading-[22px] font-[400] bg-[#FFFFFFFF] border-[1px] border-[#BCC1CAFF] border-solid outline-none;
+  @apply w-[445px] text-[#171a1f] h-[36px] pl-[12px] pr-[12px] text-[14px] leading-[22px] font-[400] bg-[#FFFFFFFF] border-[1px] border-[#BCC1CAFF] border-solid outline-none;
 }
 
 .input-item:hover {
