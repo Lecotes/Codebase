@@ -6,7 +6,7 @@ import Select from "react-tailwindcss-select";
 
 const Uploads = () => {
   const [documentData, setData] = useState({
-    group_id: 1,
+    group_id: "",
     user_id: 1,
     title: "",
     content: "",
@@ -86,6 +86,7 @@ const Uploads = () => {
                 } border-l border-r border-b border-l-[#BCC1CAFF] border-r-[#BCC1CAFF] border-b-[#e7ecf5]`,
             }}
           />
+          {errors.group_id && <em className="err-message">*Group required</em>}
         </div>
 
         <div className="form-group">
