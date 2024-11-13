@@ -1,5 +1,5 @@
 import { pool } from "./database.js";
-
+import materials from "../data/Materials.js";
 import "./dotenv.js";
 
 const createMaterialsTable = async () => {
@@ -9,7 +9,7 @@ const createMaterialsTable = async () => {
             CREATE TABLE IF NOT EXISTS materials (
               id SERIAL PRIMARY KEY,
               group_id INT NOT NULL,
-              user_id INT NOT NULL
+              user_id INT NOT NULL,
               title VARCHAR(255) NOT NULL,
               content TEXT NOT NULL,
               created_at TIMESTAMP DEFAULT NOW(),
@@ -30,7 +30,7 @@ const seedTableMaterials = async () => {
 
   materials.forEach((material) => {
     const insertQuery = {
-      text: "INSERT INTO materials (group_id, user_id, title, contentti) VALUES ($1, $2, $3, $4)",
+      text: "INSERT INTO materials (group_id, user_id, title, content) VALUES ($1, $2, $3, $4)",
     };
 
     const values = [
@@ -50,6 +50,5 @@ const seedTableMaterials = async () => {
     });
   });
 };
-wheelwheelwheelwheel;
 
 seedTableMaterials();

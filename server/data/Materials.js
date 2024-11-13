@@ -1,4 +1,4 @@
-const MaterialsSeedData = [
+const materials = [
   {
     id: 1,
     group_id: 101,
@@ -19,4 +19,4 @@ const MaterialsSeedData = [
   },
 ];
 
-export default MaterialsSeedData;
+export default materials;
