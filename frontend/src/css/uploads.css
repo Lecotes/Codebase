@@ -1,5 +1,5 @@
 .upload-page-container {
-  @apply w-[80%];
+  @apply w-[80%] p-[20px];
 }
 .form-group {
   @apply flex flex-col pb-5;
