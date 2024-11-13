@@ -12,8 +12,8 @@ const createMaterialsTable = async () => {
               user_id INT NOT NULL
               title VARCHAR(255) NOT NULL,
               content TEXT NOT NULL,
-              created_at TIMESTAMP DEFAUT Now(),
-              updated_at TIMESTAMP DEFAUT Now(),
+              created_at TIMESTAMP DEFAULT NOW(),
+              updated_at TIMESTAMP DEFAULT NOW()
             )
         `;
 
