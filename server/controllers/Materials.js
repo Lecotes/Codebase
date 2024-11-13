@@ -36,13 +36,31 @@ const getMaterialBYId = async (req, res) => {
 
     const results = await pool.query(
       `SELECT
-        cars.id,
-        cars.name,
-        cars.isconvertible,
+        materials.id,
+        materials.group_id,
+        materials.user_id,
         ) AS material_details
       FROM materials
       WHERE materials.id = $1`,
       [materialId]
+    );
+
+    res.status(200).json(results.rows[0]);
+  } catch (error) {
+    res.status(209).json({ error: error.message });
+  }
+};
+
+const getMaterials = async (req, res) => {
+  //function to get materials from database
+  try {
+    const results = await pool.query(
+      `SELECT
+        materials.id,
+        materials.group_id,
+        materials.user_id,
+        ) AS material_details
+        FROM materials`
     );
 
     res.status(200).json(results.rows[0]);
@@ -69,4 +87,5 @@ export default {
   updateMaterials,
   deleteMaterials,
   getMaterialBYId,
+  getMaterials,
 };
