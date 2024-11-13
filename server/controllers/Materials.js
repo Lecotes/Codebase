@@ -1,7 +1,7 @@
 import { pool } from "../config/database.js";
 
 const createMaterial = async (req, res) => {
-  //function to save cars into database
+  //function to save materials into database
   try {
     const { group_id, user_id, title, content } = req.body;
     const results = await pool.query(
