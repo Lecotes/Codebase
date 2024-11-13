@@ -3,10 +3,10 @@ import MaterialsController from "../controllers/Materials.js";
 const router = express.Router();
 
 router.get("/materials", MaterialsController.getMaterials);
-router.get("/material/:materialID", MaterialsController.getMaterialBYId);
+router.get("/material/:materialId", MaterialsController.getMaterialBYId);
 router.post("/material/create", MaterialsController.createMaterial);
 router.patch(
-  "/material/update/:materialID",
+  "/material/update/:materialId",
   MaterialsController.updateMaterials
 );
 router.delete(
