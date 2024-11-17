@@ -17,6 +17,42 @@ const materials = [
     created_at: "2024-11-12 13:45:23",
     updated_at: "2024-11-12 13:45:23",
   },
+  {
+    id: 3,
+    group_id: 1,
+    user_id: 2,
+    title: "Material Title 3",
+    content: "This is an additional material related to Group 1.",
+    created_at: "2024-11-13 08:15:30",
+    updated_at: "2024-11-13 08:15:30",
+  },
+  {
+    id: 4,
+    group_id: 2,
+    user_id: 1,
+    title: "Material Title 4",
+    content: "Another material for Group 2 by a different user.",
+    created_at: "2024-11-13 09:25:15",
+    updated_at: "2024-11-13 09:25:15",
+  },
+  {
+    id: 5,
+    group_id: 2,
+    user_id: 1,
+    title: "Material Title 5",
+    content: "Content for a new group (Group 3) by User 3.",
+    created_at: "2024-11-14 10:00:00",
+    updated_at: "2024-11-14 10:00:00",
+  },
+  {
+    id: 6,
+    group_id: 1,
+    user_id: 1,
+    title: "Material Title 6",
+    content: "A supplementary material for Group 1 by User 1.",
+    created_at: "2024-11-14 15:30:45",
+    updated_at: "2024-11-14 15:30:45",
+  },
 ];
 
 export default materials;
