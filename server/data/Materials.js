@@ -1,7 +1,7 @@
 const materials = [
   {
     id: 1,
-    group_id: 101,
+    group_id: 1,
     user_id: 1,
     title: "Material Title 1",
     content: "This is the content of material 1.",
@@ -10,7 +10,7 @@ const materials = [
   },
   {
     id: 2,
-    group_id: 102,
+    group_id: 2,
     user_id: 2,
     title: "Material Title 2",
     content: "This is the content of material 2.",
