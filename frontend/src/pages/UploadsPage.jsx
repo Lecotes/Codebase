@@ -49,8 +49,11 @@ const Uploads = () => {
       },
       body: JSON.stringify(documentData),
     };
-    const response = fetch("/api/material/create", options);
-    window.location = "/";
+    const response = fetch(
+      "http://localhost:3000/api/material/create",
+      options
+    );
+    //window.location = "/";
   };
 
   return (
