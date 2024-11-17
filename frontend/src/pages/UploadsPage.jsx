@@ -15,7 +15,6 @@ const Uploads = () => {
   const [errors, setErrorMessage] = useState({});
 
   const handleChangeInput = (fieldName, data) => {
-    console.log(data);
     //change input title
     setData((prevData) => ({
       ...prevData,
