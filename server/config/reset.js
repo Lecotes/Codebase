@@ -48,7 +48,6 @@ const seedTableUsers = async () => {
     }
   });
 };
-//seedTableUsers();
 
 // Profile table creation and seeding
 const createProfileTable = async () => {
@@ -91,7 +90,6 @@ const seedTableProfile = async () => {
     }
   });
 };
-//seedTableProfile();
 
 // Followers table creation and seeding
 const createFollowersTable = async () => {
@@ -133,7 +131,6 @@ const seedTableFollowers = async () => {
     }
   });
 };
-//seedTableFollowers();
 
 // Groups table creation and seeding
 const createGroupsTable = async () => {
@@ -175,7 +172,6 @@ const seedTableGroups = async () => {
     }
   });
 };
-//seedTableGroups();
 
 // // Roles table creation and seeding
 const createRolesTable = async () => {
@@ -214,7 +210,6 @@ const seedTableRoles = async () => {
     }
   });
 };
-// seedTableRoles();
 
 // // User-Group table creation and seeding
 const createUserGroupTable = async () => {
@@ -262,7 +257,6 @@ const seedTableUserGroup = async () => {
     }
   });
 };
-// seedTableUserGroup();
 
 const createMaterialsTable = async () => {
   const createTableQuery = `
@@ -312,8 +306,6 @@ const seedTableMaterials = async () => {
     }
   });
 };
-
-// seedTableMaterials();
 
 // // Comments table creation and seeding
 const createCommentsTable = async () => {
@@ -368,8 +360,6 @@ const seedTableComments = async () => {
     }
   });
 };
-
-// seedTableComments(); // Materials table creation and seeding
 
 // 7. Run the entire seeding process
 const seedDatabase = async () => {
