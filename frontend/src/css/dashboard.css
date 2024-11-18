@@ -1,0 +1,34 @@
+.user-letter {
+  @apply w-[34px] bg-[#9095A0FF] p-5 border border-transparent rounded-full h-[34px] text-center flex justify-center items-center;
+}
+
+.group-letter {
+  @apply w-[34px] bg-[#9095A0FF] text-[#FFFFFF] p-5 border-[1px] border-solid border-[#000000FF] relative rounded-full h-[34px] text-center flex justify-center items-center;
+}
+
+.nav-search {
+  @apply w-[500px] h-[52px] pl-[52px] pr-[20px] font-sans text-[18px] leading-[28px] font-normal bg-[#F3F4F6FF] border-0 outline-none;
+}
+
+.tbl {
+  @apply w-full text-left cursor-pointer mt-3 pb-5  border-solid border-[2px] border-[#f3f4f6] font-inter;
+}
+
+.tbl-head,
+.tbl-content-header {
+  @apply text-[14px] px-[10px] leading-[22px] font-inter font-[600] text-[#171A1FFF] border-b-[2px] border-[#dee1e6];
+}
+.tbl-head tr {
+  @apply bg-[#fafafb];
+}
+.tbl-content {
+  @apply text-[14px] leading-[22px] font-inter font-[400] text-[#171A1FFF];
+}
+
+.tbl-content-header {
+  @apply border-b-[0px];
+}
+
+.container {
+  @apply ml-auto mr-auto w-[1300px] pl-[1.25rem] pr-[1.25rem];
+}
