@@ -4,5 +4,12 @@ module.exports = {
   theme: {
     extend: {},
   },
+  theme: {
+    extend: {
+      fontFamily: {
+        inter: ["Inter"],
+      },
+    },
+  },
   plugins: [require("@tailwindcss/typography")],
 };

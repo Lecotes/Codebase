@@ -1,6 +1,7 @@
 import { useRoutes } from "react-router-dom";
 import Uploads from "../pages/UploadsPage";
 import TextAnnotations from "../components/TextAnnotator";
+import Dashboard from "../pages/Dashboard";
 
 const AppRoutes = () => {
   // Sets up routes
@@ -12,6 +13,10 @@ const AppRoutes = () => {
     {
       path: "/annotations",
       element: <TextAnnotations />,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
     },
   ]);
 
