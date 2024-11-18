@@ -1,0 +1,43 @@
+/* Avatar 18 */
+.avatar {
+  @apply w-[120px] h-[120px] text-[60px] text-[#FFFFFFFF] bg-[#9095A0FF] font-inter p-5 border border-transparent rounded-full text-center flex justify-center items-center align-baseline;
+}
+
+.sidebar-container {
+  @apply flex flex-col justify-center font-inter pb-[30px] border-b-[1px] border-solid border-b-[#dee1e6];
+}
+
+.avatar-name,
+.sidebar-container .title {
+  @apply text-[24px] text-[#171A1FFF] font-[700] leading-[36px];
+}
+
+.avatar-title {
+  @apply text-[14px] font-[400] leading-[22px] text-[#171A1FFF];
+}
+
+.primary-btn {
+  @apply text-[14px] font-[400] leading-[22px] text-[#FFFFFFFF] bg-[#565E6DFF] rounded-none px-[12px] w-[310px] h-[36px]
+  hover:bg-[#424956FF] active:bg-[#323842FF] active:text-white disabled:opacity-40 cursor-pointer;
+}
+
+.secondary-btn {
+  @apply text-[14px] font-[400] leading-[22px] text-[#565E6DFF] bg-[#FFFFFFFF] border-[1px] border-solid border-[#565E6DFF] rounded-none px-[12px] w-[310px] h-[36px]
+    hover:bg-[#FFFFFFFF] hover:text-[#424956FF] active:text-[#323842FF] active:text-white disabled:opacity-40 cursor-pointer;
+}
+
+.sidebar-container .name {
+  @apply text-[14px] px-[10px] leading-[22px] font-inter font-[600] border-[#dee1e6];
+}
+
+.sidebar-container-main {
+  @apply mt-5;
+}
+
+.sidebar-container-main .image img {
+  @apply w-[32px] h-[32px]  bg-cover;
+}
+
+.sidebar-container-main .image {
+  @apply pb-[20px] items-center;
+}

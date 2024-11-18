@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import "../src/css/uploads.css";
 @import "../src/css/dashboard.css";
+@import "../src/css/sidebar.css";
 @import url("https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&family=Inter:wght@100..900&display=swap");
 
 /* Custom styles for the annotation component */
