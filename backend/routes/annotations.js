@@ -159,4 +159,85 @@ router.post('/:replyId/reply-vote', async (req, res) => {
     }
 });
 
+// Delete an annotation
+router.delete('/:id/delete', async (req, res) => {
+    const { id } = req.params;
+    const { userId } = req.body; // Assuming userId is passed in the request body
+
+    try {
+        // Check if the annotation exists
+        const annotationResult = await pool.query(
+            'SELECT * FROM annotations WHERE id = $1',
+            [id]
+        );
+
+        if (annotationResult.rows.length === 0) {
+            return res.status(404).send('Annotation not found');
+        }
+
+        const annotation = annotationResult.rows[0];
+
+        // Check if the user is the owner of the annotation or the owner of the text
+        if (annotation.user_id === userId || annotation.text_id.owner_id === userId) {
+            // Proceed to delete the annotation and its replies
+            await pool.query(
+                'DELETE FROM annotation_replies WHERE annotation_id = $1',
+                [id]
+            );
+            await pool.query(
+                'DELETE FROM annotations WHERE id = $1',
+                [id]
+            );
+
+            res.status(200).send('Annotation deleted successfully');
+        } else {
+            res.status(403).send('You are not authorized to delete this annotation');
+        }
+    } catch (err) {
+        console.error('Error deleting annotation:', err);
+        res.status(500).send('Error deleting annotation');
+    }
+});
+
+// Delete a reply
+router.delete('/reply/:replyId/delete', async (req, res) => {
+    const { replyId } = req.params;
+    const { userId } = req.body; // Assuming userId is passed in the request body
+
+    try {
+        const replyResult = await pool.query(
+            'SELECT * FROM annotation_replies WHERE id = $1',
+            [replyId]
+        );
+
+        if (replyResult.rows.length === 0) {
+            return res.status(404).send('Reply not found');
+        }
+
+        const reply = replyResult.rows[0];
+        const annotationResult = await pool.query(
+            'SELECT * FROM annotations WHERE id = $1',
+            [reply.annotation_id]
+        );
+
+        const annotation = annotationResult.rows[0];
+        const textResult = await pool.query(
+            'SELECT * FROM texts WHERE id = $1',
+            [annotation.text_id]
+        );
+        const text = textResult.rows[0];
+
+        if (reply.user_id === userId || text.owner_id === userId) {
+            await pool.query('DELETE FROM annotation_replies WHERE id = $1', [replyId]);
+            res.status(200).send('Reply deleted successfully');
+        } else {
+            res.status(403).send('You are not authorized to delete this reply');
+        }
+    } catch (err) {
+        console.error('Error deleting reply:', err);
+        res.status(500).send('Error deleting reply');
+    }
+});
+
+
 module.exports = router;
