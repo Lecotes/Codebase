@@ -23,6 +23,7 @@ const TextAnnotator = ({ user }) => {
             }
 
             const data = await response.json();
+            console.log(data);
             setText(data.text.content); // Assuming `content` holds the actual text
             setAnnotations(data.annotations);
             setReplies(data.replies);
@@ -61,7 +62,7 @@ const TextAnnotator = ({ user }) => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         textId,
-                        userId: user.id,
+                        userId: user.userId,
                         content: comment,
                         rangeStart: selectedRange.start,
                         rangeEnd: selectedRange.end,
@@ -81,7 +82,7 @@ const TextAnnotator = ({ user }) => {
             const response = await fetch(`/api/annotations/${id}/vote`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: user.id, voteValue }),
+                body: JSON.stringify({ userId: user.userId, voteValue }),
             });
             if (!response.ok) {
                 throw new Error('You can only vote once per annotation.');
@@ -97,7 +98,7 @@ const TextAnnotator = ({ user }) => {
             const response = await fetch(`/api/annotations/${replyId}/reply-vote`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userId: user.id, voteValue }),
+                body: JSON.stringify({ userId: user.userId, voteValue }),
             });
             if (!response.ok) {
                 throw new Error('You can only vote once per reply.');
@@ -110,13 +111,13 @@ const TextAnnotator = ({ user }) => {
 
     const renderHighlightedText = () => {
         if (!text) return null;
-
+    
         const elements = [];
         let lastIndex = 0;
-
+    
         // Sort annotations by start range
         const sortedAnnotations = [...annotations].sort((a, b) => a.range_start - b.range_start);
-
+    
         sortedAnnotations.forEach((annotation) => {
             // Add unhighlighted text before the annotation
             if (lastIndex < annotation.range_start) {
@@ -126,7 +127,7 @@ const TextAnnotator = ({ user }) => {
                     </span>
                 );
             }
-
+    
             // Add highlighted text for the annotation
             elements.push(
                 <span
@@ -134,28 +135,29 @@ const TextAnnotator = ({ user }) => {
                     className={`px-1 rounded cursor-pointer ${
                         annotation.isMerged ? 'bg-green-200' : 'bg-yellow-200'
                     }`}
-                    title={annotation.content}
+                    title={`${annotation.content} - by ${annotation.username}`} // Show username on hover
                 >
                     {text.slice(annotation.range_start, annotation.range_end)}
                 </span>
             );
-
+    
             lastIndex = annotation.range_end;
         });
-
+    
         // Add remaining unhighlighted text
         if (lastIndex < text.length) {
             elements.push(<span key={`text-${lastIndex}`}>{text.slice(lastIndex)}</span>);
         }
-
+    
         return elements;
     };
+    
 
     const renderReplies = (annotationId) => {
         const annotationReplies = replies
             .filter((reply) => reply.annotation_id === annotationId)
             .sort((a, b) => b.votes - a.votes);
-
+    
         return (
             <div>
                 {annotationReplies.map((reply, index) => (
@@ -166,7 +168,7 @@ const TextAnnotator = ({ user }) => {
                         }`}
                     >
                         <p>{reply.content}</p>
-                        <small className="text-gray-500">By: {reply.username}</small>
+                        <small className="text-gray-500">By: {reply.username}</small> {/* Display username */}
                         {index === 0 && <span className="ml-2 text-xs text-blue-700">Top Rated</span>}
                         <div className="flex items-center mt-2 space-x-2">
                             <button
@@ -188,6 +190,7 @@ const TextAnnotator = ({ user }) => {
             </div>
         );
     };
+    
 
     return (
         <div className="flex h-screen">

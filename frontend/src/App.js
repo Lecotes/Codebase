@@ -8,21 +8,22 @@ import TextAnnotator from "./components/TextAnnotator/TextAnnotator";
 function App() {
   const [user, setUser] = useState(null);
 
-  // Check if the user is logged in when the app loads
   useEffect(() => {
     fetch('/api/auth/session', {
-      credentials: 'include', // Include session cookies
+        credentials: 'include', // Include session cookies
     })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error('Not logged in');
-        }
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Not logged in');
+            }
+        })
+        .then((data) => { 
+          setUser(data);
       })
-      .then((data) => setUser(data))
-      .catch(() => setUser(null));
-  }, []);
+        .catch(() => setUser(null));
+}, []);
   
 
   return (
@@ -56,9 +57,10 @@ function App() {
 
         {/* Text Annotator Route */}
         <Route
-          path="/text/:id"
-          element={user ? <TextAnnotator user={user} /> : <Navigate to="/login" />}
+            path="/text/:id"
+            element={user ? <TextAnnotator user={user} /> : <Navigate to="/login" />}
         />
+
 
         {/* Fallback Route */}
         <Route path="*" element={<Navigate to="/" />} />

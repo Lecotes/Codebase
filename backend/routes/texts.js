@@ -74,23 +74,25 @@ router.get('/:id', async (req, res) => {
     const text = await pool.query('SELECT * FROM texts WHERE id = $1', [id]);
     if (!text.rows.length) return res.status(404).json({ error: 'Text not found' });
 
-    // Fetch the annotations for the text
+    // Fetch the annotations with usernames
     const annotations = await pool.query(
-      `SELECT * 
-       FROM annotations 
-       WHERE text_id = $1 
-       ORDER BY votes DESC, created_at ASC`,
+      `SELECT a.*, u.username 
+       FROM annotations a
+       JOIN users u ON a.user_id = u.id
+       WHERE a.text_id = $1 
+       ORDER BY a.votes DESC, a.created_at ASC`,
       [id]
     );
 
-    // Fetch the replies for the annotations
+    // Fetch the replies with usernames
     const replies = await pool.query(
-      `SELECT * 
-       FROM annotation_replies 
-       WHERE annotation_id IN (
+      `SELECT r.*, u.username 
+       FROM annotation_replies r
+       JOIN users u ON r.user_id = u.id
+       WHERE r.annotation_id IN (
          SELECT id FROM annotations WHERE text_id = $1
        )
-       ORDER BY created_at ASC`,
+       ORDER BY r.created_at ASC`,
       [id]
     );
 
@@ -115,6 +117,7 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ error: 'Error fetching text' });
   }
 });
+
 
 
 module.exports = router;

@@ -29,10 +29,10 @@ app.use(
 // Add session middleware
 app.use(
   session({
-    secret: process.env.SESSION_SECRET, // Use environment variable for secret key
-    resave: false, // Don't save session if it hasn't been modified
-    saveUninitialized: false, // Don't save empty sessions
-    cookie: { secure: false }, // Set to true if using HTTPS
+      secret: process.env.SESSION_SECRET, // Use environment variable for secret key
+      resave: false, // Don't save session if it hasn't been modified
+      saveUninitialized: false, // Don't save empty sessions
+      cookie: { secure: false }, // Set to true if using HTTPS
   })
 );
 
