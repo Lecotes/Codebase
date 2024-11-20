@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-function AddText({ user, onClose }) {
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+function AddText({ user, onClose, refreshTexts }) {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [friends, setFriends] = useState([]);
   const [sharedWith, setSharedWith] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); // For friend search
 
   useEffect(() => {
-    fetch(`/api/friends/list?userId=${user.userId}`)
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/friends/list?userId=${user.userId}`)
       .then((response) => response.json())
       .then((data) => setFriends(data))
       .catch((error) => console.error("Error fetching friends:", error));
@@ -22,9 +23,9 @@ function AddText({ user, onClose }) {
   };
 
   const handleSubmit = () => {
-    fetch('/api/texts/create', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("${process.env.REACT_APP_API_BASE_URL}/texts/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         ownerId: user.userId,
         title,
@@ -34,17 +35,25 @@ function AddText({ user, onClose }) {
     })
       .then((response) => {
         if (response.ok) {
-          alert('Text added successfully');
-          setTitle('');
-          setContent('');
+          alert("Text added successfully");
+          setTitle("");
+          setContent("");
           setSharedWith([]);
+          refreshTexts();
           onClose();
         } else {
-          alert('Error adding text');
+          alert("Error adding text");
         }
       })
-      .catch((error) => console.error('Error:', error));
+      .catch((error) => console.error("Error:", error));
   };
+
+  // Filter friends based on the search query
+  const filteredFriends = friends.filter(
+    (friend) =>
+      friend.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      friend.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -67,21 +76,70 @@ function AddText({ user, onClose }) {
             className="p-3 border border-purple-300 rounded-lg w-full focus:outline-none focus:ring-4 focus:ring-purple-400 transition-all duration-300"
           />
         </div>
+
+        {/* Share with Friends */}
         <h4 className="text-lg font-semibold text-purple-600 mb-2">
           Share with Friends
         </h4>
-        {friends.map((friend) => (
-          <div key={friend.email} className="flex items-center mb-2">
-            <input
-              type="checkbox"
-              checked={sharedWith.includes(friend.email)}
-              onChange={() => handleCheckboxChange(friend.email)}
-              className="mr-2 accent-purple-500"
-            />
-            <label>{friend.username} ({friend.email})</label>
+        <div className="relative mb-4">
+          {/* Search Input */}
+          <input
+            type="text"
+            placeholder="Search friends..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="p-3 border border-purple-300 rounded-lg w-full focus:outline-none focus:ring-4 focus:ring-purple-400"
+          />
+        </div>
+
+        {/* Friend List */}
+        <div className="overflow-y-auto max-h-32 border border-purple-300 rounded-lg p-3">
+          {filteredFriends.length > 0 ? (
+            filteredFriends.map((friend) => (
+              <div
+                key={friend.email}
+                className="flex items-center justify-between mb-2"
+              >
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={sharedWith.includes(friend.email)}
+                    onChange={() => handleCheckboxChange(friend.email)}
+                    className="mr-2 accent-purple-500"
+                  />
+                  <span className="text-sm text-purple-700 font-medium">
+                    {friend.username}
+                  </span>
+                </label>
+                <span className="text-xs text-gray-500">{friend.email}</span>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-500 text-center">No friends found</p>
+          )}
+        </div>
+
+        {/* Selected Friends Summary */}
+        {sharedWith.length > 0 && (
+          <div className="mt-4">
+            <h5 className="text-sm font-medium text-purple-600 mb-2">
+              Shared With:
+            </h5>
+            <div className="flex flex-wrap gap-2">
+              {sharedWith.map((email) => (
+                <span
+                  key={email}
+                  className="bg-purple-100 text-purple-600 px-2 py-1 rounded-lg text-sm"
+                >
+                  {email}
+                </span>
+              ))}
+            </div>
           </div>
-        ))}
-        <div className="flex space-x-4">
+        )}
+
+        {/* Action Buttons */}
+        <div className="flex space-x-4 mt-6">
           <button
             onClick={handleSubmit}
             className="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-transform duration-300 hover:scale-105"
@@ -97,7 +155,6 @@ function AddText({ user, onClose }) {
         </div>
       </div>
     </div>
-
   );
 }
 

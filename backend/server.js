@@ -15,16 +15,15 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
 
-app.use(
-  cors({
-    origin: 'http://localhost:3001', // Replace with your frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true, // Allow cookies and credentials
-  })
-);
+// CORS configuration
+const corsOptions = {
+  origin: 'https://lecotes.onrender.com', // Your frontend URL
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
 
+app.use(cors(corsOptions));
 
 // Add session middleware
 app.use(
@@ -32,18 +31,15 @@ app.use(
       secret: process.env.SESSION_SECRET, // Use environment variable for secret key
       resave: false, // Don't save session if it hasn't been modified
       saveUninitialized: false, // Don't save empty sessions
-      cookie: { secure: false }, // Set to true if using HTTPS
+      cookie: { secure: process.env.NODE_ENV === 'production' }, // Set to true if using HTTPS
   })
 );
-
-
 
 // API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/friends', friendRoutes);
 app.use('/api/texts', textRoutes);
 app.use('/api/annotations', annotationsRouter);
-
 
 // Serve React frontend
 app.use(express.static(path.join(__dirname, '../frontend/build')));
@@ -52,4 +48,4 @@ app.get('*', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log('Running'));

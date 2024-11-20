@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import FriendsList from "./FriendsList";
 import Notifications from "./Notifications";
@@ -12,19 +12,19 @@ function Dashboard({ user, setUser }) {
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const navigate = useNavigate();
 
-  const fetchTexts = () => {
-    fetch(`/api/texts?userId=${user.userId}`)
+  const fetchTexts = useCallback(() => {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/texts?userId=${user.userId}`)
       .then((response) => response.json())
       .then((data) => setTexts(data))
       .catch((error) => console.error("Error fetching texts:", error));
-  };
+  }, [user.userId]);
 
   useEffect(() => {
     fetchTexts();
-  }, [user.userId]);
+  }, [fetchTexts]);
 
   const handleLogout = () => {
-    fetch("/api/auth/logout", { method: "POST" })
+    fetch("https://lecotes-backend.onrender.com/api/auth/logout", { method: "POST" })
       .then(() => setUser(null))
       .catch((error) => console.error("Error logging out:", error));
   };
@@ -32,6 +32,29 @@ function Dashboard({ user, setUser }) {
   const handleOpenText = (id) => {
     navigate(`/text/${id}`);
   };
+
+  const handleDeleteText = (id) => {
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/texts/${id}`, {
+      method: 'DELETE',
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert('Text deleted successfully');
+          fetchTexts(); // Refresh the texts after deletion
+        } else {
+          // You can log the response for more insight on why it's failing
+          response.json().then((data) => {
+            console.error(data);
+            alert('Error deleting text');
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Error deleting text:', error);
+        alert('Error deleting text');
+      });
+  };
+  
 
   // Filtered texts based on the search query
   const filteredOwnedTexts = texts.owned.filter((text) =>
@@ -106,6 +129,12 @@ function Dashboard({ user, setUser }) {
                       >
                         Open
                       </button>
+                      <button
+                        onClick={() => handleDeleteText(text.id)}
+                        className="text-red-500 hover:underline ml-2"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -159,7 +188,7 @@ function Dashboard({ user, setUser }) {
       </div>
 
       {isAddTextModalOpen && (
-        <AddText user={user} onClose={() => setIsAddTextModalOpen(false)} />
+        <AddText user={user} onClose={() => setIsAddTextModalOpen(false)} refreshTexts={fetchTexts} />
       )}
       {isAddFriendModalOpen && (
         <AddFriendModal user={user} onClose={() => setIsAddFriendModalOpen(false)} />
