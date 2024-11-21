@@ -12,14 +12,14 @@ const annotationsRouter = require('./routes/annotations');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+  
 // Middleware
 app.use(bodyParser.json());
 
 // CORS configuration
 const corsOptions = {
   origin: 'https://lecotes.onrender.com', // Your frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 };
 
@@ -31,7 +31,7 @@ app.use(
       secret: process.env.SESSION_SECRET, // Use environment variable for secret key
       resave: false, // Don't save session if it hasn't been modified
       saveUninitialized: false, // Don't save empty sessions
-      cookie: { secure: process.env.NODE_ENV === 'production' }, // Set to true if using HTTPS
+      cookie: { secure: process.env.NODE_ENV === 'production', sameSite: 'None', httpOnly: true,}, // Set to true if using HTTPS
   })
 );
 

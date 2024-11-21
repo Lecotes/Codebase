@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 
-function AddFriendModal({ user, onClose }) {
+function AddFriendModal({ user, onClose, fetchFriends }) {
   const [email, setEmail] = useState("");
 
   const handleAddFriend = () => {
-    fetch(`${process.env.REACT_APP_API_BASE_URL}/friends/request`, {
+    fetch(`https://lecotes-backend.onrender.com/api/friends/request`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ senderId: user.userId, receiverEmail: email }),
+      credentials: 'include'
     })
       .then((response) => {
         if (response.ok) {
           alert("Friend request sent!");
           setEmail(""); // Clear the input
           onClose(); // Close the modal
+          fetchFriends(); // Call the fetchFriends function to refresh the list
         } else {
           alert("Error sending friend request.");
         }

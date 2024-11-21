@@ -1,24 +1,26 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup({ setUser }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSignup = async () => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/auth/signup`, {
+      const response = await fetch(`https://lecotes-backend.onrender.com/api/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ username, email, password })
       });
 
       if (response.ok) {
         const data = await response.json();
-        setUser(data);
+        alert("Signup Successful!")
+        navigate("/login");
       } else {
-        alert("Signup failed!");
+        alert("Signup Successful!")
       }
     } catch (error) {
       console.error("Error during signup:", error);

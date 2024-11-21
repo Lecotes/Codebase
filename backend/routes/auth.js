@@ -13,6 +13,8 @@ router.post('/signup', async (req, res) => {
       'INSERT INTO users (email, password, username) VALUES ($1, $2, $3) RETURNING id',
       [email, hashedPassword, username]
     );
+
+
     res.status(201).json({ userId: result.rows[0].id });
   } catch (err) {
     console.error('Error creating user:', err);
